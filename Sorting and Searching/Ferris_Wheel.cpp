@@ -14,29 +14,21 @@ int main()
         cin >> weight[i];
     }
     sort(weight, weight + n);
-
-    for (int i = 0; i < n; i++)
+    int i = 0, j = n - 1;
+    while (i <= j)
     {
-        /* code */
-        if (weight[i] + weight[i + 1] <= x)
+        if (weight[i] + weight[j] <= x)
         {
             cnt++;
-            i += 2;
+            i++;
+            j--;
         }
-
-        if (weight[i] + weight[i + 1] > x && (weight[i] <= x) && (weight[i + 1] <= x))
-        {
-            /* code */
-            cnt += 2;
-            break;
-        }
-
-        if (weight[i] + weight[i + 1] > x && ((weight[i] <= x) || (weight[i + 1] <= x)))
+        else
         {
             cnt++;
+            j--;
         }
     }
-
     cout << cnt << endl;
     return 0;
 }
