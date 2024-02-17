@@ -3,47 +3,36 @@ using namespace std;
 
 int main()
 {
-    int nu, m;
-    cin >> nu >> m;
-    vector<int> tick(nu), user(m);
-    for (auto &i : tick)
-        cin >> i;
-    for (auto &i : user)
-        cin >> i;
-    sort(tick.begin(), tick.end());
-    int n = min(tick.size(), user.size());
-
-    for (int i = 0; i < n; i++)
+    int n, m;
+    cin >> n >> m;
+    multiset<int> ms;
+    while ((n--) != 0)
     {
-        if (binary_search(tick.begin(), tick.end(), user[i]))
-        {
-            cout << user[i];
-            break;
-        }
-
-        if (user[i] < tick[0])
+        int tick;
+        cin >> tick;
+        ms.insert(tick);
+    }
+    queue<int> q;
+    while (m--)
+    {
+        int user;
+        cin >> user;
+        q.push(user);
+    }
+    while (!q.empty())
+    {
+        int x = q.front();
+        auto it = ms.upper_bound(x);
+        if (it == ms.begin())
         {
             cout << -1 << endl;
-            break;
         }
-
-        if (user[i] > tick[i] && user[i] < tick[i + 1])
+        else
         {
-            cout << tick[i] << endl;
-            break;
+            cout << *(--it) << endl;
+            ms.erase(it);
         }
+        q.pop();
     }
-
-    /*  for (auto i : user)
-      {
-          if (binary_search(tick.begin(), tick.end(), user[i]))
-          {
-              cout << user[i];
-          }
-          else if ()
-          {
-          }
-      }
-      */
     return 0;
 }
