@@ -3,21 +3,27 @@ using namespace std;
 
 int main()
 {
-    int n;
+    int n, max = 0, ans = 0;
     cin >> n;
     map<int, int> mp;
     for (int i = 0; i < n; i++)
     {
-        int arival, deptarture;
-        cin >> arival >> deptarture;
-        mp.insert({arival, deptarture});
+        int arival, departure;
+        cin >> arival >> departure;
+        mp[arival]++;
+        mp[departure]--;
     }
 
-    auto i = mp.begin();
-    while (i != mp.end())
+    for (auto x : mp)
     {
-        cout << i->first << " " << i->second << endl;
-        i++;
+        ans += x.second;
+        if (max < ans)
+        {
+            max = ans;
+        }
     }
+
+    cout << max << endl;
+
     return 0;
 }
